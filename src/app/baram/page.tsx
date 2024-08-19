@@ -4,12 +4,20 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 export default function BaramChart() {
     const data = [
         {
-            date: '',
-            user: 0,
+          date: '',
+        },
+        {
+          date: '24.08.10',
+          today: 15192,
+        },
+        {
+          date: '24.08.13',
+          today: 15327,
         },
         {
           date: '24.08.14',
           user: 5970,
+          today: 15706,
         },
         {
           date: '24.08.16',
@@ -18,6 +26,7 @@ export default function BaramChart() {
         {
           date: '24.08.18',
           user: 5756,
+          today: 16093,
         },
         {
           date: '24.08.19',
@@ -26,7 +35,7 @@ export default function BaramChart() {
       ];
     return (
         <div className="baram-chart-container">
-            <h4 className="baram-title">바람의나라 동시 접속자 수</h4>
+            <h4 className="baram-title">바람의나라 접속자 수</h4>
             <ResponsiveContainer width="100%" height="100%">
                 <LineChart
                     data={data}
@@ -41,11 +50,26 @@ export default function BaramChart() {
                     <XAxis dataKey="date" />
                     <YAxis />
                     <Tooltip />
-                    <Legend />
-                    {/* <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} /> */}
+                    <Legend content={<CustomizedLegend external={external} />}/>
+                    <Line type="monotone" dataKey="today" stroke="#8884d8" activeDot={{ r: 6 }} />
                     <Line type="monotone" dataKey="user" stroke="#82ca9d" activeDot={{r : 6}}/>
                 </LineChart>
             </ResponsiveContainer>
         </div>
     )
+}
+
+function CustomizedLegend(props: any) {
+  const { payload } = props;
+  const label = [' 일간 접속자 수', ' 동시 접속자 수']
+  const color = ['#8884d8', '#82ca9d']
+  return (
+    <ul>
+      {
+        payload.map((entry: any, index: number) => (
+          <li key={`item-${index}`} style={{ color: color[index] }}>{entry.value + label[index]}</li>
+        ))
+      }
+    </ul>
+  )
 }
