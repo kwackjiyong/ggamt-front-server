@@ -50,7 +50,7 @@ export default function BaramChart() {
                     <XAxis dataKey="date" />
                     <YAxis />
                     <Tooltip />
-                    <Legend content={<CustomizedLegend external={external} />}/>
+                    <Legend content={<CustomizedLegend />}/>
                     <Line type="monotone" dataKey="today" stroke="#8884d8" activeDot={{ r: 6 }} />
                     <Line type="monotone" dataKey="user" stroke="#82ca9d" activeDot={{r : 6}}/>
                 </LineChart>
