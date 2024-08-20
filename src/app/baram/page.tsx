@@ -16,21 +16,16 @@ export default function BaramChart() {
         },
         {
           date: '24.08.14',
-          user: 5970,
           today: 15706,
         },
         {
-          date: '24.08.16',
-          user: 5567,
-        },
-        {
           date: '24.08.18',
-          user: 5756,
           today: 16093,
         },
         {
-          date: '24.08.19',
-          user: 5721,
+          date: '24.08.20',
+          today: 15732,
+          user: 6904,
         },
       ];
     return (
