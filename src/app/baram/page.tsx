@@ -35,6 +35,14 @@ export default function BaramChart() {
           date: '24.08.22',
           user: 6749,
         },
+        {
+          date: '24.08.23',
+          user: 6655,
+        },
+        {
+          date: '24.08.27',
+          user: 6930,
+        },
       ];
     return (
         <div className="baram-chart-container">
@@ -64,7 +72,7 @@ export default function BaramChart() {
 
 function CustomizedLegend(props: any) {
   const { payload } = props;
-  const label = [' 일간 접속자 수', ' 동시 접속자 수']
+  const label = [' 일간 접속자 수', ' 동시 접속자 수 (8pm 기준)']
   const color = ['#8884d8', '#82ca9d']
   return (
     <ul>
