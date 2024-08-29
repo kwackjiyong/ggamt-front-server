@@ -47,6 +47,10 @@ export default function BaramChart() {
           date: '24.08.28',
           user: 6910,
         },
+        {
+          date: '24.08.29',
+          user: 6354,
+        },
       ];
     return (
         <div className="baram-chart-container">
