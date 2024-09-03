@@ -2,10 +2,17 @@
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { BaramHistoryService } from '@/service/baram';
 import { useEffect, useState } from 'react';
+import { TimeHistory } from '@/service/baram/interface/timeHistory.interface';
+
+interface TimeHistoryGroup {
+  date: string
+  user: number
+  jobs: Array<TimeHistory>
+}
 
 export default function BaramChart () {
   const job = ['전사', '도적', '주술사', '도사', '궁사', '천인', '마도사', '영술사', '차사', '살수']
-  const [timeHistory, setTimeHistory] = useState< {date: string; user: number; }[]>([]);
+  const [timeHistory, setTimeHistory] = useState<Array<TimeHistoryGroup>>([]);
   const state = {
     dayHistory: [],
     timeHistory: [] 
@@ -16,13 +23,27 @@ export default function BaramChart () {
       const requestHistory = async () => {
         const res = await bhs.requestBaramHistory()
           console.log(res)
-          const chartData = res.timeHistoryList.map(r => {
-            return {
-              date: r.hsDttm + `[${job[r.jobTp]}]`,
-              job: job[r.jobTp],
-              user: r.accCnt
+          const chartData = res.timeHistoryList?.reduce((r, d) => {
+            const key = d.hsDttm;
+            let group = r.find(a => a.date === key)
+            if (!group) {
+              group = {
+                date: d.hsDttm,
+                user: 0,
+                jobs: []
+              };
+              r.push(group);
             }
-          }) ?? []
+            group.user += d.accCnt
+            group.jobs.push(d)
+            
+            return r;
+            // return {
+            //   date: r.hsDttm + `[${job[r.jobTp]}]`,
+            //   job: job[r.jobTp],
+            //   user: r.accCnt
+            // }
+          },[] as Array<TimeHistoryGroup>)
           setTimeHistory(chartData)
       }
       requestHistory();
