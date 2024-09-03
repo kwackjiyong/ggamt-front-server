@@ -17,9 +17,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-      <h2>GGAMT.info</h2>
+      <div className="header">
+        <h2>GGAMT.info</h2>
+      </div>
       {children}
-      <span className="bottom-header">Data based on NEXON Open API</span>
+      <div className="footer">
+        <span className="bottom-header">Data based on NEXON Open API</span>
+      </div>
       </body>
     </html>
   );

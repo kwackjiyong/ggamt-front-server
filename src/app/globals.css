@@ -3,9 +3,32 @@
 .baram-chart-container {
   /* width: 700px; */
   height: 300px;
+  margin: 10px;
 }
 
 .bottom-header {
   padding-top: 100px;
   float:left;
+}
+
+.custom-tooltip {
+  border: 1px dashed #34235533;
+  background-color: #a18c6d99;
+  padding: 0px 10px;
+}
+.desc {
+  font-size: 12pt;
+  color: #33333399;
+}
+.intro {
+  font-size: 8pt;
+  /* color: gray; */
+}
+.grid {
+  display: flex;
+}
+.grid-child {
+  flex-flow: column;
+  margin: 10px;
+  margin-top: 0px;
 }

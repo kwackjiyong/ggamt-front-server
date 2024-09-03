@@ -9,9 +9,38 @@ interface TimeHistoryGroup {
   user: number
   jobs: Array<TimeHistory>
 }
+const job = ['전사', '도적', '주술사', '도사', '궁사', '천인', '마도사', '영술사', '차사', '살수']
+const CustomTooltip = (arg: { active: any, payload: Array<{payload: TimeHistoryGroup}>, label: string }) => {
+  if (arg.active && arg.payload && arg.payload.length > 0) {
+    const target = arg.payload[0].payload
+    return (
+      <div className="custom-tooltip">
+        <p className="label">{`${arg.label}`}</p>
+        <p className="label">{`동시 접속자 수: ${target.user}명`}</p>
+        <div className="grid">
+          <div className="grid-child">
+            <p className="intro">{`${job[0]} : ${target.jobs[0].accCnt}명`}</p>
+            <p className="intro">{`${job[1]} : ${target.jobs[1].accCnt}명`}</p>
+            <p className="intro">{`${job[2]} : ${target.jobs[2].accCnt}명`}</p>
+            <p className="intro">{`${job[3]} : ${target.jobs[3].accCnt}명`}</p>
+            <p className="intro">{`${job[4]} : ${target.jobs[4].accCnt}명`}</p>
+          </div>
+          <div className="grid-child">
+            <p className="intro">{`${job[5]} : ${target.jobs[5].accCnt}명`}</p>
+            <p className="intro">{`${job[6]} : ${target.jobs[6].accCnt}명`}</p>
+            <p className="intro">{`${job[7]} : ${target.jobs[7].accCnt}명`}</p>
+            <p className="intro">{`${job[8]} : ${target.jobs[8].accCnt}명`}</p>
+            <p className="intro">{`${job[9]} : ${target.jobs[9].accCnt}명`}</p>
+          </div>
+        </div>
+        {/* <p className="desc">상위 10만명을 기준으로 조회한 데이터입니다.</p> */}
+      </div>
+    );
+  }
 
+  return null;
+};
 export default function BaramChart () {
-  const job = ['전사', '도적', '주술사', '도사', '궁사', '천인', '마도사', '영술사', '차사', '살수']
   const [timeHistory, setTimeHistory] = useState<Array<TimeHistoryGroup>>([]);
   const state = {
     dayHistory: [],
@@ -38,11 +67,6 @@ export default function BaramChart () {
             group.jobs.push(d)
             
             return r;
-            // return {
-            //   date: r.hsDttm + `[${job[r.jobTp]}]`,
-            //   job: job[r.jobTp],
-            //   user: r.accCnt
-            // }
           },[] as Array<TimeHistoryGroup>)
           setTimeHistory(chartData)
       }
@@ -65,14 +89,17 @@ export default function BaramChart () {
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="date" />
                     <YAxis />
-                    <Tooltip />
+                    <Tooltip content={<CustomTooltip active={undefined} payload={[]} label={''} />}/>
                     {/* <Legend content={<CustomizedLegend />}/> */}
-                    <Line type="monotone" dataKey="user" stroke="#82ca9d" activeDot={{ r: 6 }}/>
+                    <Line type="monotone" dataKey="user" stroke="#a18c6d" activeDot={{ r: 6 }}/>
                 </LineChart>
             </ResponsiveContainer>
+            <p className="desc">상위 10만명을 기준으로 조회한 데이터입니다.</p> 
         </div>
     )
 }
+
+
 
 // function CustomizedLegend(props: any) {
 //   const { payload } = props;

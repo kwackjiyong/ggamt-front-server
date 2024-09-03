@@ -1,59 +1,84 @@
 'use client'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { BaramHistoryService } from '@/service/baram';
+import { useEffect, useState } from 'react';
+import { TimeHistory } from '@/service/baram/interface/timeHistory.interface';
 
-export default function BaramChart() {
-    const data = [
-        {
-          date: '',
-        },
-        {
-          date: '24.08.10',
-          today: 15192,
-        },
-        {
-          date: '24.08.13',
-          today: 15327,
-        },
-        {
-          date: '24.08.14',
-          today: 15706,
-        },
-        {
-          date: '24.08.18',
-          today: 16093,
-        },
-        {
-          date: '24.08.20',
-          today: 15732,
-          user: 6904,
-        },
-        {
-          date: '24.08.21',
-          user: 6885,
-        },
-        {
-          date: '24.08.22',
-          user: 6749,
-        },
-        {
-          date: '24.08.23',
-          user: 6655,
-        },
-        {
-          date: '24.08.27',
-          user: 6930,
-        },
-        {
-          date: '24.08.28',
-          user: 6910,
-        },
-      ];
+interface TimeHistoryGroup {
+  date: string
+  user: number
+  jobs: Array<TimeHistory>
+}
+const job = ['전사', '도적', '주술사', '도사', '궁사', '천인', '마도사', '영술사', '차사', '살수']
+const CustomTooltip = (arg: { active: any, payload: Array<{payload: TimeHistoryGroup}>, label: string }) => {
+  if (arg.active && arg.payload && arg.payload.length > 0) {
+    const target = arg.payload[0].payload
+    return (
+      <div className="custom-tooltip">
+        <p className="label">{`${arg.label}`}</p>
+        <p className="label">{`동시 접속자 수: ${target.user}명`}</p>
+        <div className="grid">
+          <div className="grid-child">
+            <p className="intro">{`${job[0]} : ${target.jobs[0].accCnt}명`}</p>
+            <p className="intro">{`${job[1]} : ${target.jobs[1].accCnt}명`}</p>
+            <p className="intro">{`${job[2]} : ${target.jobs[2].accCnt}명`}</p>
+            <p className="intro">{`${job[3]} : ${target.jobs[3].accCnt}명`}</p>
+            <p className="intro">{`${job[4]} : ${target.jobs[4].accCnt}명`}</p>
+          </div>
+          <div className="grid-child">
+            <p className="intro">{`${job[5]} : ${target.jobs[5].accCnt}명`}</p>
+            <p className="intro">{`${job[6]} : ${target.jobs[6].accCnt}명`}</p>
+            <p className="intro">{`${job[7]} : ${target.jobs[7].accCnt}명`}</p>
+            <p className="intro">{`${job[8]} : ${target.jobs[8].accCnt}명`}</p>
+            <p className="intro">{`${job[9]} : ${target.jobs[9].accCnt}명`}</p>
+          </div>
+        </div>
+        {/* <p className="desc">상위 10만명을 기준으로 조회한 데이터입니다.</p> */}
+      </div>
+    );
+  }
+
+  return null;
+};
+export default function BaramChart () {
+  const [timeHistory, setTimeHistory] = useState<Array<TimeHistoryGroup>>([]);
+  const state = {
+    dayHistory: [],
+    timeHistory: [] 
+    };
+    const bhs = new BaramHistoryService();
+    // init
+    useEffect(() => {
+      const requestHistory = async () => {
+        const res = await bhs.requestBaramHistory()
+          console.log(res)
+          const chartData = res.timeHistoryList?.reduce((r, d) => {
+            const key = d.hsDttm;
+            let group = r.find(a => a.date === key)
+            if (!group) {
+              group = {
+                date: d.hsDttm,
+                user: 0,
+                jobs: []
+              };
+              r.push(group);
+            }
+            group.user += d.accCnt
+            group.jobs.push(d)
+            
+            return r;
+          },[] as Array<TimeHistoryGroup>)
+          setTimeHistory(chartData)
+      }
+      requestHistory();
+    }, [])
+
     return (
         <div className="baram-chart-container">
-            <h4 className="baram-title">바람의나라 접속자 수</h4>
+            <h4 className="baram-title">바람의나라 동시 접속자 수</h4>
             <ResponsiveContainer width="100%" height="100%">
                 <LineChart
-                    data={data}
+                    data={timeHistory}
                     margin={{
                         top: 5,
                         right: 30,
@@ -64,27 +89,12 @@ export default function BaramChart() {
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="date" />
                     <YAxis />
-                    <Tooltip />
-                    <Legend content={<CustomizedLegend />}/>
-                    <Line type="monotone" dataKey="today" stroke="#8884d8" activeDot={{ r: 6 }} />
-                    <Line type="monotone" dataKey="user" stroke="#82ca9d" activeDot={{r : 6}}/>
+                    <Tooltip content={<CustomTooltip active={undefined} payload={[]} label={''} />}/>
+                    {/* <Legend content={<CustomizedLegend />}/> */}
+                    <Line type="monotone" dataKey="user" stroke="#a18c6d" activeDot={{ r: 6 }}/>
                 </LineChart>
             </ResponsiveContainer>
+            <p className="desc">상위 10만명을 기준으로 조회한 데이터입니다.</p> 
         </div>
     )
-}
-
-function CustomizedLegend(props: any) {
-  const { payload } = props;
-  const label = [' 일간 접속자 수', ' 동시 접속자 수 (8pm 기준)']
-  const color = ['#8884d8', '#82ca9d']
-  return (
-    <ul>
-      {
-        payload.map((entry: any, index: number) => (
-          <li key={`item-${index}`} style={{ color: color[index] }}>{entry.value + label[index]}</li>
-        ))
-      }
-    </ul>
-  )
 }
