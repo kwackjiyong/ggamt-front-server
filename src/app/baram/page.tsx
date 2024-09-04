@@ -1,7 +1,7 @@
 'use client'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { BaramHistoryService } from '@/service/baram';
-import { useEffect, useState } from 'react';
+import { PureComponent, useEffect, useState } from 'react';
 import { TimeHistory } from '@/service/baram/interface/timeHistory.interface';
 
 interface TimeHistoryGroup {
@@ -40,6 +40,17 @@ const CustomTooltip = (arg: { active: any, payload: Array<{payload: TimeHistoryG
 
   return null;
 };
+class CustomizedLabel extends PureComponent {
+  render() {
+    const { x, y, stroke, value } = this.props as any;
+
+    return (
+      <text x={x} y={y} dy={-4} fill={stroke} fontSize={10} textAnchor="middle">
+        {value}
+      </text>
+    );
+  }
+}
 export default function BaramChart () {
   const [timeHistory, setTimeHistory] = useState<Array<TimeHistoryGroup>>([]);
   const state = {
@@ -91,7 +102,7 @@ export default function BaramChart () {
                     <YAxis />
                     <Tooltip content={<CustomTooltip active={undefined} payload={[]} label={''} />}/>
                     {/* <Legend content={<CustomizedLegend />}/> */}
-                    <Line type="monotone" dataKey="user" stroke="#a18c6d" activeDot={{ r: 6 }}/>
+                    <Line type="monotone" dataKey="user" stroke="#a18c6d" activeDot={{ r: 6 }} label={ <CustomizedLabel /> }/>
                 </LineChart>
             </ResponsiveContainer>
             <p className="desc">상위 10만명을 기준으로 조회한 데이터입니다.</p> 
