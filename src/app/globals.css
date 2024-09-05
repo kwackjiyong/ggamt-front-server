@@ -5,12 +5,16 @@
   height: 300px;
   margin: 10px;
 }
-
-.bottom-header {
-  padding-top: 100px;
-  float:left;
+.footer {
+  background-color: #333;
+  color: #fff;
+  text-align: left;
+  padding: 10px 0;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
 }
-
 .custom-tooltip {
   border: 1px dashed #34235533;
   background-color: #a18c6d99;
@@ -31,4 +35,46 @@
   flex-flow: column;
   margin: 10px;
   margin-top: 0px;
+}
+.btn-round {
+  background-color: #a18c6d;
+  color: #ffffff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 50px; /* 모서리를 둥글게 */
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.baram-desc-box {
+  background-color: #a18c6d;
+  color: #ffffff;
+  margin-top: 20px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 30px; /* 모서리를 둥글게 */
+}
+
+.toggle-button {
+  background-color: #ccc; /* OFF 상태일 때 회색 */
+  color: white;
+  margin: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.toggle-button:hover {
+  opacity: 0.8; /* 호버 시 약간의 불투명 효과 */
+}
+
+.toggle-button.on {
+  background-color: #4CAF50; /* ON 상태일 때 초록색 */
+}
+
+.toggle-button.off {
+  background-color: #ccc; /* OFF 상태일 때 회색 */
 }

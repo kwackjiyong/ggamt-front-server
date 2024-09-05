@@ -1,7 +1,7 @@
 'use client'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { BaramHistoryService } from '@/service/baram';
-import { PureComponent, useEffect, useState } from 'react';
+import { PureComponent, useEffect, useMemo, useState } from 'react';
 import { TimeHistory } from '@/service/baram/interface/timeHistory.interface';
 
 interface TimeHistoryGroup {
@@ -43,7 +43,6 @@ const CustomTooltip = (arg: { active: any, payload: Array<{payload: TimeHistoryG
 class CustomizedLabel extends PureComponent {
   render() {
     const { x, y, stroke, value } = this.props as any;
-
     return (
       <text x={x} y={y} dy={-4} fill={stroke} fontSize={10} textAnchor="middle">
         {value}
@@ -53,11 +52,23 @@ class CustomizedLabel extends PureComponent {
 }
 export default function BaramChart () {
   const [timeHistory, setTimeHistory] = useState<Array<TimeHistoryGroup>>([]);
+  const [isShowLabel, setIsShowLabel] = useState(true);
+  const [isShowLatest, setIsShowLatest] = useState(false);
   const state = {
     dayHistory: [],
     timeHistory: [] 
     };
     const bhs = new BaramHistoryService();
+
+    const computedTimeHistory = useMemo(() => {
+      console.log('Computed value is recalculated');
+      if (isShowLatest) {
+        return timeHistory.slice(timeHistory.length -12, timeHistory.length);
+      } else {
+        return timeHistory;
+      }
+    }, [timeHistory, isShowLatest]);
+
     // init
     useEffect(() => {
       const requestHistory = async () => {
@@ -84,28 +95,47 @@ export default function BaramChart () {
       requestHistory();
     }, [])
 
+    const handleToggleShowLabel = () => {
+      setIsShowLabel(!isShowLabel);
+    }
+
+    const handleToggleShowLatest = () => {
+      setIsShowLatest(!isShowLatest);
+    }
+
     return (
         <div className="baram-chart-container">
             <h4 className="baram-title">바람의나라 동시 접속자 수</h4>
             <ResponsiveContainer width="100%" height="100%">
-                <LineChart
-                    data={timeHistory}
-                    margin={{
-                        top: 5,
-                        right: 30,
-                        left: 20,
-                        bottom: 5,
-                    }}
-                    >
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="date" />
-                    <YAxis />
-                    <Tooltip content={<CustomTooltip active={undefined} payload={[]} label={''} />}/>
-                    {/* <Legend content={<CustomizedLegend />}/> */}
-                    <Line type="monotone" dataKey="user" stroke="#a18c6d" activeDot={{ r: 6 }} label={ <CustomizedLabel /> }/>
-                </LineChart>
+              <LineChart
+                  data={computedTimeHistory}
+                  margin={{
+                      top: 5,
+                      right: 30,
+                      left: 20,
+                      bottom: 5,
+                  }}
+                  >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="date" />
+                  <YAxis />
+                  <Tooltip content={<CustomTooltip active={undefined} payload={[]} label={''} />}/>
+                  {/* <Legend content={<CustomizedLegend />}/> */}
+                  <Line type="monotone" dataKey="user" stroke="#a18c6d" activeDot={{ r: 6 }} label={ isShowLabel && (<CustomizedLabel />)}/>
+              </LineChart>
             </ResponsiveContainer>
-            <p className="desc">상위 10만명을 기준으로 조회한 데이터입니다.</p> 
+            <div className='baram-desc-box'>
+              <button onClick={handleToggleShowLabel} className="toggle-button">
+                라벨 {isShowLabel ? '보기' : '숨기기'}
+              </button>
+              <button onClick={handleToggleShowLatest} className="toggle-button">
+                {isShowLatest ? '최근 12시간' : '전체보기'}
+              </button>
+              <p> * 랭킹 상위 10만명을 기준으로 수집한 데이터입니다.</p>
+              <p> * 데이터는 매시간마다 수집됩니다.</p>
+              <p> * 수집 데이터 내 오류 발견 시 수집 데이터는 언제든 수정/삭제될 수 있습니다.</p>
+              <p> * 문의는 비승급@연으로 편지 주세요.</p>
+            </div>
         </div>
     )
 }
