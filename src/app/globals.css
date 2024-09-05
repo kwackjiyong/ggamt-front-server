@@ -2,11 +2,8 @@
 
 .baram-chart-container {
   /* width: 700px; */
-  height: 300px;
-  margin: 10px;
-}
-.body {
-  padding-bottom: 150px;
+  /* height: 300px; */
+  margin: 10px 0 100px 0;
 }
 .footer {
   background-color: #333;
