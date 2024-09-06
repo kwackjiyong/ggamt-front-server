@@ -105,8 +105,8 @@ export default function BaramChart () {
 
     return (
       <div>
+        <h4 className="baram-title">바람의나라 동시 접속자 수</h4>
         <div className="baram-chart-container">
-            <h4 className="baram-title">바람의나라 동시 접속자 수</h4>
             <ResponsiveContainer width="100%" height="100%">
               <LineChart
                   data={computedTimeHistory}
