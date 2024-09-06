@@ -104,6 +104,7 @@ export default function BaramChart () {
     }
 
     return (
+      <div>
         <div className="baram-chart-container">
             <h4 className="baram-title">바람의나라 동시 접속자 수</h4>
             <ResponsiveContainer width="100%" height="100%">
@@ -124,19 +125,19 @@ export default function BaramChart () {
                   <Line type="monotone" dataKey="user" stroke="#a18c6d" activeDot={{ r: 6 }} label={ isShowLabel && (<CustomizedLabel />)}/>
               </LineChart>
             </ResponsiveContainer>
-            <div className='baram-desc-box'>
-              <button onClick={handleToggleShowLabel} className="toggle-button">
-                라벨 {isShowLabel ? '보기' : '숨기기'}
-              </button>
-              <button onClick={handleToggleShowLatest} className="toggle-button">
-                {isShowLatest ? '최근 12시간' : '전체보기'}
-              </button>
-              <p> * 연서버 기준으로 조회됩니다.</p>
-              <p> * 랭킹 상위 10만명을 기준으로 수집한 데이터입니다.</p>
-              <p> * 데이터는 매시간마다 수집됩니다.</p>
-              <p> * 수집 데이터 내 오류 발견 시 수집 데이터는 언제든 수정/삭제될 수 있습니다.</p>
-              <p> * 문의는 비승급@연으로 편지 주세요.</p>
-            </div>
         </div>
+        <div className='baram-desc-box'>
+          <button onClick={handleToggleShowLabel} className="toggle-button">
+            라벨 {isShowLabel ? '보기' : '숨기기'}
+          </button>
+          <button onClick={handleToggleShowLatest} className="toggle-button">
+            {isShowLatest ? '최근 12시간' : '전체보기'}
+          </button>
+          <p> * 연서버 기준으로 조회됩니다.</p>            <p> * 랭킹 상위 10만명을 기준으로 수집한 데이터입니다.</p>
+          <p> * 데이터는 매시간마다 수집됩니다.</p>
+          <p> * 수집 데이터 내 오류 발견 시 수집 데이터는 언제든 수정/삭제될 수 있습니다.</p>
+          <p> * 문의는 비승급@연으로 편지 주세요.</p>          
+        </div>
+      </div>
     )
 }
