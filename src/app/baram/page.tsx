@@ -3,6 +3,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 import { BaramHistoryService } from '@/service/baram';
 import { PureComponent, useEffect, useMemo, useState } from 'react';
 import { TimeHistory } from '@/service/baram/interface/timeHistory.interface';
+import * as gtag from '@/util/gtag';
 
 interface TimeHistoryGroup {
   date: string
@@ -54,6 +55,7 @@ export default function BaramChart () {
   const [timeHistory, setTimeHistory] = useState<Array<TimeHistoryGroup>>([]);
   const [isShowLabel, setIsShowLabel] = useState(true);
   const [isShowLatest, setIsShowLatest] = useState(false);
+  gtag.pageview('/baram');
   const state = {
     dayHistory: [],
     timeHistory: [] 

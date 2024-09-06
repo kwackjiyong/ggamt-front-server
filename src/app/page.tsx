@@ -1,7 +1,8 @@
-
 import Link from 'next/link';
+import * as gtag from '@/util/gtag';
 
 export default function Home() {
+  gtag.pageview('/');
   return (
     <div>
       <Link href="/baram">
