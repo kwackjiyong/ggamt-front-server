@@ -6,6 +6,7 @@ const nextConfig = {
         {
           source: '/api/:path*',
           destination: 'http://ggamt.info:8090/api/:path*',
+          // destination: 'http://localhost:8090/api/:path*',
         },
       ];
     },
