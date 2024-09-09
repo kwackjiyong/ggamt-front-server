@@ -25,6 +25,7 @@ export default function BaramMacroList () {
         { id: '무천천', desc: '동쪽해안가 매크로' },
         { id: '네크로흑마법', desc: '동쪽해안가 매크로' },
         { id: '즐겜플레이어', desc: '서쪽해안가 매크로' },
+        { id: '토속초등', desc: '입장패 매크로' },
     ]
     const serverName = '연'
     const getUrl = (id: string) => {
