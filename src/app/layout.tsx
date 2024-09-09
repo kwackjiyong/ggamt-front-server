@@ -1,13 +1,13 @@
-
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { useRouter } from "next/router";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "GGAMT",
-  description: "Good Game Amount",
+  description: "게임 정보 공유 사이트",
 };
 
 export default function RootLayout({
@@ -35,7 +35,11 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
       <div className="header">
-        <h2>GGAMT.info</h2>
+        <h2>
+          <a href="/" className="ggamt-title-a">
+          GGAMT.info
+          </a>
+        </h2>
       </div>
       <div className="body">
         {children}

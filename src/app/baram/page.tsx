@@ -53,7 +53,7 @@ class CustomizedLabel extends PureComponent {
 }
 export default function BaramChart () {
   const [timeHistory, setTimeHistory] = useState<Array<TimeHistoryGroup>>([]);
-  const [isShowLabel, setIsShowLabel] = useState(true);
+  const [isShowLabel, setIsShowLabel] = useState(false);
   const [isShowLatest, setIsShowLatest] = useState(false);
   gtag.pageview('/baram');
   const state = {
@@ -73,6 +73,9 @@ export default function BaramChart () {
 
     // init
     useEffect(() => {
+      /**
+       * 접속자수 히스토리 데이터 조회 및 데이터정합
+       */
       const requestHistory = async () => {
         const res = await bhs.requestBaramHistory()
           console.log(res)
@@ -135,9 +138,10 @@ export default function BaramChart () {
           <button onClick={handleToggleShowLatest} className="toggle-button">
             {isShowLatest ? '최근 12시간' : '전체보기'}
           </button>
-          <p> * 연서버 기준으로 조회됩니다.</p>            <p> * 랭킹 상위 10만명을 기준으로 수집한 데이터입니다.</p>
+          <p> * 연서버 기준으로 조회됩니다.</p>            
+          <p> * 랭킹 상위 10만명을 기준으로 수집한 데이터입니다.</p>
           <p> * 데이터는 매시간마다 수집됩니다.</p>
-          <p> * 수집 데이터 내 오류 발견 시 수집 데이터는 언제든 수정/삭제될 수 있습니다.</p>
+          <p> * 수집 데이터는 언제든 수정/삭제될 수 있습니다.</p>
           <p> * 문의는 비승급@연으로 편지 주세요.</p>          
         </div>
       </div>

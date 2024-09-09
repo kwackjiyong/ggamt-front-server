@@ -10,6 +10,12 @@ export default function Home() {
           바람의나라 동시접속자수 확인하러 가기
         </div>
       </Link>
+      <br/>
+      <Link href="/baram/macro">
+        <div className="btn-round imageButton">
+          바람의나라 매크로 명단 확인하러 가기
+        </div>
+      </Link>
     </div>
   );
 }

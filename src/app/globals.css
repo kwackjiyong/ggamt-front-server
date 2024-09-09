@@ -1,5 +1,14 @@
 
 
+body {
+  background: url('https://www.transparenttextures.com/patterns/cardboard.png'); /* 종이 질감 배경 */
+}
+a {
+  text-decoration: none; /* 밑줄 제거 */
+}
+.ggamt-title-a {
+  color: #222222
+}
 .baram-chart-container {
   /* width: 700px; */
   height: 300px;
@@ -79,4 +88,66 @@
 
 .toggle-button.off {
   background-color: #ccc; /* OFF 상태일 때 회색 */
+}
+
+/** 매크로 수배명단 */
+
+.macro-container {
+  display: flex;
+  flex-wrap: wrap; /* 줄 바꿈을 허용 */
+  justify-content: space-between; /* 카드 사이의 공간 균일하게 배치 */
+  gap: 20px; /* 카드 사이 간격 */
+  max-width: 1000px; /* 그리드 전체 너비 설정 */
+  margin: 0 auto; /* 가운데 정렬 */
+}
+
+.macro-card {
+  width: 150px;
+  padding: 25px;
+  border: 5px solid #8b4513; /* 브라운 테두리 */
+  border-radius: 30px;
+  background-color: #fffaf0; /* 밝은 종이 색 배경 */
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5); /* 그림자 효과 */
+  text-align: center;
+  margin: 20px auto;
+  font-size: 18px;
+  font-weight: bold;
+  position: relative;
+}
+
+.macro-card-header {
+  font-size: 30px;
+  color: #8b0000; /* 짙은 빨강색 텍스트 */
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4); /* 텍스트 그림자 */
+  margin-bottom: 10px;
+}
+
+.macro-character-image {
+  width: 100%;
+  height: auto;
+  border: 3px solid #8b4513; /* 이미지를 둘러싼 테두리 */
+  margin-bottom: 10px;
+}
+
+.macro-character-name {
+  font-size: 22px;
+  margin: 10px 0;
+  color: #000;
+}
+
+.macro-character-desc {
+  font-size: 16px;
+  color: #333;
+  margin-top: 10px;
+}
+
+.macro-card:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.2;
+  z-index: -1;
 }
