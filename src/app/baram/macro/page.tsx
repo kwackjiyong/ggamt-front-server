@@ -4,7 +4,7 @@ export default function BaramMacroList () {
     const macros = [
         { id: '피레호이스', desc: '천뇌삼 매크로' },
         { id: '히피체유티스', desc: '천뇌삼 매크로' },
-        { id: '달에풍', desc: '천뇌삼 매크로' },
+        { id: '달에풍덩', desc: '천뇌삼 매크로' },
         { id: '귀염정현도리', desc: '천뇌삼 매크로' },
         { id: '가히스턴피드', desc: '천뇌삼 매크로' },
         { id: '라승철헤어', desc: '바겁알 매크로' },
