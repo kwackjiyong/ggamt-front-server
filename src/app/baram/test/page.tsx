@@ -15,7 +15,7 @@ export default function BaramMacroList () {
             const res = await baramMacroService.requestBaramMacro();
             if(res) {
                 setGthrDttm(res.gthrDttm ?? '');
-                setMacroInfos(res.macroInfos ?? []);
+                setMacroInfos(res.macroInfos?.toSorted((a, b) => a.isLive ? -1 : 1) ?? []);
                 setMacroCnt(res.macroInfos?.length ?? 0);
             }
         }
