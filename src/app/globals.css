@@ -122,11 +122,64 @@ a {
   margin-bottom: 10px;
 }
 
+
+
+.macro-character-image-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.macro-character-image-box {
+  position: relative;
+  overflow: hidden;
+  margin: 20px;
+  border-radius: 10px;
+  width: 110px;
+  height: 135px;
+  box-shadow: 0 0 5px 1px #555;
+  z-index: 0;
+}
+
 .macro-character-image {
-  width: 100%;
-  height: auto;
-  border: 3px solid #8b4513; /* 이미지를 둘러싼 테두리 */
-  margin-bottom: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  content: "";
+  border-radius: 8px;
+  width: 95px;
+  height: 120px;
+  line-height: 80px;
+  text-align: center;
+  font-weight: bold;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.macro-character-image.off {
+  filter: grayscale(100%);
+}
+
+@keyframes rotateAni {
+  100% {
+      transform: rotate(360deg);
+  }
+}
+
+.macro-character-image-box.on::before {
+  position: absolute;
+  top: -25%;
+  left: -25%;
+  display: block;
+  content: "";
+  width: 150%;
+  height: 150%;
+  z-index: -1;
+}
+
+.macro-character-image-box.on::before {
+  background: conic-gradient(transparent 180deg,  #348f57 360deg);
+  animation: rotateAni 1.5s infinite linear;
 }
 
 .macro-character-name {
@@ -149,7 +202,7 @@ a {
 
 .macro-character-live.on {
   font-size: 26px;
-  color: #09ee09;
+  color: #348f57;
 }
 
 .macro-card:before {
