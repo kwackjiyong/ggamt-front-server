@@ -1,38 +1,27 @@
 'use client'
 
+import { PureComponent, useEffect, useMemo, useState } from 'react';
+import { MacroLiveInfoInterface } from '@/service/baram/interface/responseBaramMacroCurrent.interface';
+import { BaramMacroService } from '@/service/baram';
+
 export default function BaramMacroList () {
-    const macros = [
-        { id: '피레호이스', desc: '천뇌삼 매크로' },
-        { id: '히', desc: '천뇌삼 매크로' },
-        { id: '달에풍덩', desc: '천뇌삼 매크로' },
-        { id: '귀염정현도리', desc: '천뇌삼 매크로' },
-        { id: '가히스턴피드', desc: '천뇌삼 매크로' },
-        { id: '라승철헤어', desc: '바겁알 매크로' },
-        { id: '사율법사', desc: '바겁알 매크로' },
-        { id: '지존영술법사', desc: '바겁알 매크로' },
-        { id: '멸종위기뿌', desc: '바겁알 매크로' },
-        //{ id: '장벽용', desc: '바겁알 매크로' },
-        { id: '컨힐', desc: '바겁알 매크로' },
-        //{ id: '율옥', desc: '바겁알 매크로' },
-        { id: '투스딘', desc: '바겁알 매크로' },
-        { id: '매케로이', desc: '해골굴 매크로' },
-        { id: '주술재현', desc: '해골굴 매크로' },
-        { id: '주술현지', desc: '해골굴 매크로' },
-        { id: '철상인', desc: '해골굴 매크로' },
-        { id: '만년된', desc: '양왕굴 매크로' },
-        { id: '올방주아', desc: '상어심장 매크로' },
-        { id: '내로매로', desc: '상어심장 매크로' },
-        { id: '캐넛피큐', desc: '악어굴 생산 매크로' },
-        { id: '감나무입니다', desc: '동쪽해안가 매크로' },
-        { id: '비라나아', desc: '동쪽해안가 매크로' },
-        { id: '무천천', desc: '동쪽해안가 매크로' },
-        { id: '네크로흑마법', desc: '동쪽해안가 매크로' },
-        { id: '즐겜플레이어', desc: '서쪽해안가 매크로' },
-        { id: '토속초등', desc: '입장패 매크로' },
-        { id: '러부닝', desc: '한고개 매크로' },
-        { id: '팔이멍', desc: '한고개 매크로' },
-        { id: '고철만물상', desc: '한고개 매크로' },
-    ]
+    const [macroInfos, setMacroInfos] = useState<Array<MacroLiveInfoInterface>>([]);
+    const [macroCnt, setMacroCnt] = useState(0);
+    const [gthrDttm, setGthrDttm] = useState('');
+    const baramMacroService = new BaramMacroService();
+    useEffect(() => {
+
+        const requestMacroInfos = async () => {
+            const res = await baramMacroService.requestBaramMacro();
+            if(res) {
+                setGthrDttm(res.gthrDttm ?? '');
+                setMacroInfos(res.macroInfos?.toSorted((a, b) => a.isLive ? -1 : 1) ?? []);
+                setMacroCnt(res.macroInfos?.length ?? 0);
+            }
+        }
+        requestMacroInfos();
+    },[]);
+    
     const serverName = '연'
     const getUrl = (id: string) => {
         return `https://avatar.baram.nexon.com/Profile/RenderAvatar/${serverName}/${id}?is=2`
@@ -41,17 +30,19 @@ export default function BaramMacroList () {
         <div>
             <h4 className="baram-title">바람의나라 매크로 조회</h4>
             <div className='baram-desc-box'>
-                <p> * 총 매크로 유저: {macros.length ?? 0}명</p>
-                <p> * 실시간 접속여부 조회 및 매크로별 인원수 차트가 추가될 예정입니다.</p>
+                <p> * 총 매크로 유저: {macroCnt}명</p>
+                <p> * 최근수집일시: {gthrDttm}</p>
+                <p> * 접속여부는 10분마다 갱신됩니다.</p>
                 <p> * 매크로는 쓰지맙시다.</p>
             </div>
             <div className="macro-container">
-                {macros.map((macro)=> (
+                {macroInfos.map((macro)=> (
                     <div className="macro-card" key={macro.id}>
                         <div className="macro-card-header">WANTED</div>
-                        <img className="macro-character-image" src={getUrl(macro.id)} alt={macro.id} />
-                        <div className="macro-character-name">{macro.id}@연</div>
-                        <div className="macro-character-desc">{macro.desc}</div>
+                        <img className="macro-character-image" src={getUrl(macro.userName)} alt={macro.userName} />
+                        <div className="macro-character-name">{macro.userName}@연</div>
+                        <div className="macro-character-desc">{macro.description}</div>
+                        <div className={`macro-character-live ${macro.isLive ? 'on' : ''}` }>{macro.isLive ? '접속중' : '미접속'}</div>
                     </div>
                 ))}
                 

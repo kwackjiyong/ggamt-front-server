@@ -42,7 +42,7 @@ export default function BaramMacroList () {
                         <img className="macro-character-image" src={getUrl(macro.userName)} alt={macro.userName} />
                         <div className="macro-character-name">{macro.userName}@연</div>
                         <div className="macro-character-desc">{macro.description}</div>
-                        <div className="macro-character-desc">{macro.isLive ? '접속중' : '미접속'}</div>
+                        <div className={`macro-character-live ${macro.isLive ? 'on' : ''}` }>{macro.isLive ? '접속중' : '미접속'}</div>
                     </div>
                 ))}
                 

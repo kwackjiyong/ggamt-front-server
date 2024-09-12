@@ -141,6 +141,17 @@ a {
   margin-top: 10px;
 }
 
+.macro-character-live {
+  font-size: 22px;
+  color: #ee5533;
+  margin-top: 10px;
+}
+
+.macro-character-live.on {
+  font-size: 26px;
+  color: #09ee09;
+}
+
 .macro-card:before {
   content: '';
   position: absolute;
