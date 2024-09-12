@@ -137,7 +137,6 @@ a {
   width: 110px;
   height: 135px;
   box-shadow: 0 0 5px 1px #555;
-  z-index: 0;
 }
 
 .macro-character-image {
@@ -153,7 +152,7 @@ a {
   text-align: center;
   font-weight: bold;
   transform: translate(-50%, -50%);
-  z-index: 2;
+  /* z-index: 2; */
 }
 
 .macro-character-image.off {
@@ -174,7 +173,6 @@ a {
   content: "";
   width: 150%;
   height: 150%;
-  z-index: -1;
 }
 
 .macro-character-image-box.on::before {
