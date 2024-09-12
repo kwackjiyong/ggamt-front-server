@@ -35,7 +35,7 @@ export default function BaramMacroList () {
                 <p> * 현재 매크로 유저 {macroLiveCnt} 명이 접속 중 입니다. (총원 {macroCnt}명 중)</p>
                 <p> * 최근수집일시: {gthrDttm}</p>
                 <p> * 접속여부는 10분마다 갱신됩니다.</p>
-                <p> * 매크로는 쓰지맙시다.</p>
+                <p> * 매크로 제보는 <b>비승급@연</b> 으로 편지주세요.</p>
             </div>
             <div className="macro-container">
                 {macroInfos.map((macro)=> (
