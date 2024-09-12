@@ -97,7 +97,7 @@ a {
   flex-wrap: wrap; /* 줄 바꿈을 허용 */
   justify-content: space-between; /* 카드 사이의 공간 균일하게 배치 */
   gap: 20px; /* 카드 사이 간격 */
-  max-width: 1000px; /* 그리드 전체 너비 설정 */
+  /* max-width: 1000px; 그리드 전체 너비 설정 */
   margin: 0 auto; /* 가운데 정렬 */
 }
 
@@ -152,6 +152,7 @@ a {
   text-align: center;
   font-weight: bold;
   transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
   /* z-index: 2; */
 }
 
@@ -162,6 +163,7 @@ a {
 @keyframes rotateAni {
   100% {
       transform: rotate(360deg);
+      -webkit-transform: rotate(360deg);
   }
 }
 
@@ -201,15 +203,4 @@ a {
 .macro-character-live.on {
   font-size: 26px;
   color: #348f57;
-}
-
-.macro-card:before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0.2;
-  z-index: -1;
 }
