@@ -1,6 +1,7 @@
 'use client'
 
 import { PureComponent, useEffect, useMemo, useState } from 'react';
+import Image from 'next/image';
 import { MacroLiveInfoInterface } from '@/service/baram/interface/responseBaramMacroCurrent.interface';
 import { BaramMacroService } from '@/service/baram';
 
@@ -11,7 +12,6 @@ export default function BaramMacroList () {
     const [gthrDttm, setGthrDttm] = useState('');
     const baramMacroService = new BaramMacroService();
     useEffect(() => {
-
         const requestMacroInfos = async () => {
             const res = await baramMacroService.requestBaramMacro();
             if(res) {
@@ -44,7 +44,14 @@ export default function BaramMacroList () {
                         
                         <div className="macro-character-image-container">
                             <div className={`macro-character-image-box ${macro.isLive ? 'on' : 'off'}`}>
-                                <img className={`macro-character-image ${macro.isLive ? 'on' : 'off'}`}  src={getUrl(macro.userName)} alt={macro.userName} />
+                                <Image  
+                                    className={`macro-character-image ${macro.isLive ? 'on' : 'off'}`}
+                                    src={getUrl(macro.userName)} 
+                                    alt={macro.userName}
+                                    width={500} 
+                                    height={300} 
+                                />
+                                {/* <img className={`macro-character-image ${macro.isLive ? 'on' : 'off'}`} loading="lazy" src={getUrl(macro.userName)} alt={macro.userName} /> */}
                             </div>
                         </div>
                         <div className="macro-character-name">{macro.userName}@연</div>
