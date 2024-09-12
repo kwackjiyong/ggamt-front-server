@@ -51,6 +51,7 @@ export default function BaramMacroList () {
                                     width={300} 
                                     height={300}
                                     unoptimized
+                                    priority={true}
                                 />
                                 {/* <img className={`macro-character-image ${macro.isLive ? 'on' : 'off'}`} loading="lazy" src={getUrl(macro.userName)} alt={macro.userName} /> */}
                             </div>
