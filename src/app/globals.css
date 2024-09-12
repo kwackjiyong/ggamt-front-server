@@ -156,8 +156,8 @@ a {
 }
 
 .macro-character-image.off {
-  filter: -webkit-grayscale(100%); 
-  filter: grayscale(100%);
+  filter: grayscale(100%); 
+  -webkit-filter: grayscale(100%);
 }
 
 @keyframes rotateAni {
