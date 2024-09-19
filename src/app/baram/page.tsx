@@ -138,9 +138,12 @@ export default function BaramChart () {
           <button onClick={handleToggleShowLatest} className="toggle-button">
             {isShowLatest ? '최근 12시간' : '전체보기'}
           </button>
+          <p> * <b>랭킹페이지 스크래핑이 막힌 관계로 더이상 새로운 수집을 진행하기 어렵게 되었습니다.</b></p>
+          <p> * <b>이전에 수집된 데이터만 노출하는게 가능할 것 같습니다.</b></p>
+          <p> * <b>정책상 해당 페이지는 한달 후 삭제됩니다.</b></p>
+          <br />
           <p> * 연서버 기준으로 조회됩니다.</p>            
           <p> * 랭킹 상위 10만명을 기준으로 수집한 데이터입니다.</p>
-          <p> * 데이터는 매시간마다 수집됩니다.</p>
           <p> * 수집 데이터는 언제든 수정/삭제될 수 있습니다.</p>
           <p> * 문의는 비승급@연으로 편지 주세요.</p>          
         </div>
