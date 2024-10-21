@@ -6,8 +6,8 @@ import { useRouter } from "next/router";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "GGAMT",
-  description: "게임 정보 공유 사이트",
+  title: "바람서적",
+  description: "바람의나라 클래식 정보 공유",
 };
 
 export default function RootLayout({
@@ -37,7 +37,7 @@ export default function RootLayout({
       <div className="header">
         <h2>
           <a href="/" className="ggamt-title-a">
-          GGAMT.info
+          舊바람서적
           </a>
         </h2>
       </div>
@@ -45,7 +45,7 @@ export default function RootLayout({
         {children}
       </div>
       <div className="footer">
-        <span className="bottom-header">&nbsp; &nbsp; &nbsp; Data based on NEXON Open API</span>
+        {/* <span className="bottom-header">&nbsp; &nbsp; &nbsp;</span> */}
       </div>
       </body>
     </html>
